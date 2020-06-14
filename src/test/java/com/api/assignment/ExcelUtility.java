@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -23,8 +26,14 @@ public class ExcelUtility
 	public void createExcelSheet(List<Object> objListMovieNames) throws IOException
 	{
 		workbook =  new XSSFWorkbook();
+		
 		sheet = workbook.createSheet("Movie Names");
-		File f = new File(System.getProperty("user.dir")+"\\src\\test\\resources\\MovieNames.xlsx");
+		
+		Path resourceDirectory = Paths.get("src","test","resources","MovieNames.xlsx");
+		String absolutePath = resourceDirectory.toFile().getAbsolutePath();
+		System.out.println(absolutePath);
+		//File f = new File(System.getProperty("user.dir")+"\\src\\test\\resources\\MovieNames.xlsx");
+		 File f = new File(absolutePath);
 		
 		CellStyle objCellStyle = workbook.createCellStyle();
 		XSSFFont objFont = workbook.createFont();
@@ -47,7 +56,19 @@ public class ExcelUtility
 		System.out.println("Excel sheet is Created...");
 	}
 	
+	public void getPath()
+	{
+		Path resourceDirectory = Paths.get("src","test","resources","MovieNames.xlsx");
+		String absolutePath = resourceDirectory.toFile().getAbsolutePath();
+		System.out.println(absolutePath);
+	}
 	
+	
+	public static void main(String[] args) 
+	{
+		ExcelUtility objExcelUtility = new ExcelUtility();
+			objExcelUtility.getPath();
+	}
 	
 	
 	
